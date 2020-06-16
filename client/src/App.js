@@ -18,7 +18,7 @@ const NotFound = () => {
   return <div>NotFound</div>;
 };
 
-const DashboardRoute = ({ component: Component, ...rest }) => {
+const MainRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
@@ -54,9 +54,9 @@ class App extends Component {
         <div style={{ height: "100vh" }}>
           <Router>
             <Switch>
-              <DashboardRoute path="/dashboard" component={Home} />
-              <DashboardRoute path="/setting" component={Setting} />
-              <DashboardRoute exact path="/" component={Home} />
+              <MainRoute path="/dashboard" component={Home} />
+              <MainRoute path="/setting" component={Setting} />
+              <MainRoute exact path="/" component={Home} />
               <EmptyRoute component={NotFound} />
             </Switch>
           </Router>

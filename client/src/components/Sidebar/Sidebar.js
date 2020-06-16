@@ -63,7 +63,7 @@ const Sidebar = props => {
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
-            <ListItemText primary="Orders" />
+            <ListItemText primary="Configurações" />
           </ListItem>
         </Link>
       </List>
