@@ -20,13 +20,12 @@ const Home = props => {
     >
       <Card>
         <CardContent>
-          <Typography variant="headline" headlineMapping={"h1"}>
+          <Typography variant="body2">
             Redux Example
           </Typography>
           <Typography
             align="center"
-            variant="subheading"
-            headlineMapping={"h1"}
+            variant="body2"
           >
             Counter: {props.stepCounter.counter}
           </Typography>
