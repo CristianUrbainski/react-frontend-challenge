@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import Home from "./containers/Home";
 import Setting from "./containers/Setting";
 import CustomerList from './containers/CustomerList';
+import CustomerDetails from './containers/CustomerDetails';
 
 import MainLayout from "./layouts/MainLayout";
 import EmptyLayout from "./layouts/EmptyLayout";
@@ -58,6 +59,7 @@ class App extends Component {
               <MainRoute path="/dashboard" component={Home} />
               <MainRoute path="/setting" component={Setting} />
               <MainRoute path="/customers" component={CustomerList} />
+              <MainRoute path="/customer-details/:id" component={CustomerDetails} />
               <MainRoute exact path="/" component={Home} />
               <EmptyRoute component={NotFound} />
             </Switch>
