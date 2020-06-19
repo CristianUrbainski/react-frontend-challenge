@@ -4,7 +4,7 @@ import { Card, CardContent, Grid, Typography, Avatar } from '@material-ui/core';
 import { green, blue, red, grey } from '@material-ui/core/colors';
 import { Link } from 'react-router-dom';
 
-const useStyles = makeStyles(theme => ({
+const oportunidadesStyles = makeStyles(theme => ({
   root: {
     height: '100%'
   },
@@ -27,7 +27,10 @@ const useStyles = makeStyles(theme => ({
   grey: {
     color: '#fff',
     backgroundColor: grey[500]
-  },
+  }
+}));
+
+const oportunidadeItemStye = makeStyles(theme => ({
   metricaTitulo: {
     fontWeight: 'bold',
     fontSize: 14
@@ -35,11 +38,11 @@ const useStyles = makeStyles(theme => ({
   metricaValor: {
     fontSize: 11
   }
-}));
+}))
 
 const Oportunidades = (props) => {
 
-  const classes = useStyles();
+  const classes = oportunidadesStyles();
 
   return (
     <Card>
@@ -55,85 +58,13 @@ const Oportunidades = (props) => {
           </Grid>
 
           <Grid container>
-            <Grid container item={true} spacing={1} xs={6}>
-              <Grid item>
-                <Avatar variant="rounded" className={classes.green}>
-                  {props.opportunity?.win?.quantity}
-                </Avatar>
-              </Grid>
-              <Grid item>
-                <Typography
-                  className={classes.metricaTitulo}
-                  color="textSecondary">
-                  {props.opportunity?.win?.description}
-                </Typography>
-                <Typography
-                  className={classes.metricaValor}
-                  color="textSecondary">
-                  {props.opportunity?.win?.value}
-                </Typography>
-              </Grid>
-            </Grid>
+            <OportuidadeItem item={props.opportunity?.win} avatarColor={classes.green} />
 
-            <Grid container item={true} spacing={1} xs={6}>
-              <Grid item>
-                <Avatar variant="rounded" className={classes.red}>
-                {props.opportunity?.open?.quantity}
-                </Avatar>
-              </Grid>
-              <Grid item>
-                <Typography
-                  className={classes.metricaTitulo}
-                  color="textSecondary">
-                  {props.opportunity?.open?.description}
-                </Typography>
-                <Typography
-                  className={classes.metricaValor}
-                  color="textSecondary">
-                  {props.opportunity?.open?.value}
-                </Typography>
-              </Grid>
-            </Grid>
+            <OportuidadeItem item={props.opportunity?.open} avatarColor={classes.red} />
 
-            <Grid container item={true} spacing={1} xs={6} style={{ marginTop: 10 }}>
-              <Grid item>
-                <Avatar variant="rounded" className={classes.blue}>
-                {props.opportunity?.lost?.quantity}
-                </Avatar>
-              </Grid>
-              <Grid item>
-                <Typography
-                  className={classes.metricaTitulo}
-                  color="textSecondary">
-                  {props.opportunity?.lost?.description}
-                </Typography>
-                <Typography
-                  className={classes.metricaValor}
-                  color="textSecondary">
-                  {props.opportunity?.lost?.value}
-                </Typography>
-              </Grid>
-            </Grid>
+            <OportuidadeItem item={props.opportunity?.lost} avatarColor={classes.blue} style={{ marginTop: 10 }} />
 
-            <Grid container item={true} spacing={1} xs={6} style={{ marginTop: 10 }}>
-              <Grid item>
-                <Avatar variant="rounded" className={classes.grey}>
-                {props.opportunity?.discarded?.quantity}
-                </Avatar>
-              </Grid>
-              <Grid item>
-                <Typography
-                  className={classes.metricaTitulo}
-                  color="textSecondary">
-                  {props.opportunity?.discarded?.description}
-                </Typography>
-                <Typography
-                  className={classes.metricaValor}
-                  color="textSecondary">
-                  {props.opportunity?.discarded?.value}
-                </Typography>
-              </Grid>
-            </Grid>
+            <OportuidadeItem item={props.opportunity?.discarded} avatarColor={classes.gray} style={{ marginTop: 10 }} />
 
             <Grid item xs={12}>
               <Typography style={{ fontSize: 12, marginLeft: 5, marginTop: 10 }}>
@@ -147,7 +78,33 @@ const Oportunidades = (props) => {
       </CardContent>
     </Card>
   )
+}
 
+const OportuidadeItem = (props) => {
+
+  const classes = oportunidadeItemStye();
+  
+  return (
+    <Grid container item={true} spacing={1} xs={6} style={props.style}>
+      <Grid item>
+        <Avatar variant="rounded" className={props.avatarColor}>
+          {props.item?.quantity}
+        </Avatar>
+      </Grid>
+      <Grid item>
+        <Typography
+          className={classes.metricaTitulo}
+          color="textSecondary">
+          {props.item?.description}
+        </Typography>
+        <Typography
+          className={classes.metricaValor}
+          color="textSecondary">
+          {props.item?.value}
+        </Typography>
+      </Grid>
+    </Grid>
+  )
 }
 
 export default Oportunidades;
