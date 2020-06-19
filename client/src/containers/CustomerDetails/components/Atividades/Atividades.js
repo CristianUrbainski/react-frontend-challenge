@@ -4,7 +4,7 @@ import { Card, CardContent, Grid, Typography, TextField, InputAdornment, Avatar 
 import Search from "@material-ui/icons/Search"
 import { grey, red, blue, yellow, green } from '@material-ui/core/colors';
 
-const useStyles = makeStyles(theme => ({
+const atividadesStyles = makeStyles(theme => ({
   root: {
     height: 'calc(100% + 8px)'
   },
@@ -31,7 +31,10 @@ const useStyles = makeStyles(theme => ({
   green: {
     color: '#fff',
     backgroundColor: green[500]
-  },
+  }
+}));
+
+const atividadeItemStyles = makeStyles(theme => ({
   quantidadeContainer: {
     display: 'inline-flex',
     marginRight: 10
@@ -49,7 +52,7 @@ const useStyles = makeStyles(theme => ({
 
 const Atividades = (props) => {
 
-  const classes = useStyles();
+  const classes = atividadesStyles();
 
   return (
     <Card className={classes.root}>
@@ -79,66 +82,43 @@ const Atividades = (props) => {
           </Grid>
 
           <Grid container style={{ marginTop: 5 }}>
-            {props.activities?.total !== undefined && <Grid item className={classes.quantidadeContainer}>
-              <Avatar variant="rounded" className={[classes.grey, classes.avatarSize]}>
-                {props.activities?.total?.quantity}
-              </Avatar>
-              <Typography
-                color="textSecondary"
-                className={classes.description}>
-                {props.activities?.total?.description}
-              </Typography>
-            </Grid>}
+            {props.activities?.total !== undefined 
+              && <AtividadeItem item={props.activities?.total} avatarColor={classes.grey} />}
 
-            {props.activities?.delayed !== undefined && <Grid item className={classes.quantidadeContainer}>
-              <Avatar variant="rounded" className={[classes.red, classes.avatarSize]}>
-                {props.activities?.delayed?.quantity}
-              </Avatar>
-              <Typography
-                color="textSecondary"
-                className={classes.description}>
-                {props.activities?.delayed?.description}
-              </Typography>
-            </Grid>}
+            {props.activities?.delayed !== undefined 
+              && <AtividadeItem item={props.activities?.delayed} avatarColor={classes.red} />}
 
-            {props.activities?.progress !== undefined && <Grid item className={classes.quantidadeContainer}>
-              <Avatar variant="rounded" className={[classes.blue, classes.avatarSize]}>
-                {props.activities?.progress?.quantity}
-              </Avatar>
-              <Typography
-                color="textSecondary"
-                className={classes.description}>
-                {props.activities?.progress?.description}
-              </Typography>
-            </Grid>}
+            {props.activities?.progress !== undefined 
+              && <AtividadeItem item={props.activities?.progress} avatarColor={classes.blue} />}
 
-            {props.activities?.expected !== undefined && <Grid item className={classes.quantidadeContainer}>
-              <Avatar variant="rounded" className={[classes.yellow, classes.avatarSize]}>
-                {props.activities?.expected?.quantity}
-              </Avatar>
-              <Typography
-                color="textSecondary"
-                className={classes.description}>
-                {props.activities?.expected?.description}
-              </Typography>
-            </Grid>}
+            {props.activities?.expected !== undefined 
+              && <AtividadeItem item={props.activities?.expected} avatarColor={classes.yellow} />}
 
-            {props.activities?.completed !== undefined && <Grid item className={classes.quantidadeContainer}>
-              <Avatar variant="rounded" className={[classes.green, classes.avatarSize]}>
-                {props.activities?.completed?.quantity}
-              </Avatar>
-              <Typography
-                color="textSecondary"
-                className={classes.description}>
-                {props.activities?.completed?.description}
-              </Typography>
-            </Grid>}
+            {props.activities?.completed !== undefined 
+              && <AtividadeItem item={props.activities?.completed} avatarColor={classes.green} />}
           </Grid>
         </Grid>
       </CardContent>
     </Card>
   )
+}
 
+const AtividadeItem = (props) => {
+
+  const classes = atividadeItemStyles();
+
+  return (
+    <Grid item className={classes.quantidadeContainer}>
+      <Avatar variant="rounded" className={[props.avatarColor, classes.avatarSize]}>
+        {props.item?.quantity}
+      </Avatar>
+      <Typography
+        color="textSecondary"
+        className={classes.description}>
+        {props.item?.description}
+      </Typography>
+    </Grid>
+  )
 }
 
 export default Atividades;
