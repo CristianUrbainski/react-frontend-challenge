@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Card, CardContent, Grid, Typography, Avatar } from '@material-ui/core';
 import { red, green, orange } from '@material-ui/core/colors';
 
-const useStyles = makeStyles(theme => ({
+const tituloFinanceirosStyles = makeStyles(theme => ({
   root: {
     height: '100%'
   },
@@ -25,7 +25,10 @@ const useStyles = makeStyles(theme => ({
     color: '#fff',
     backgroundColor: orange[500],
     marginTop: 4
-  },
+  }
+}));
+
+const tituloFinanceiroItemStyles = makeStyles(theme => ({
   value: {
     fontSize: 18,
     fontWeight: 700
@@ -37,7 +40,7 @@ const useStyles = makeStyles(theme => ({
 
 const TituloFinanceiros = (props) => {
 
-  const classes = useStyles();
+  const classes = tituloFinanceirosStyles();
 
   return (
     <Card>
@@ -53,73 +56,42 @@ const TituloFinanceiros = (props) => {
             </Typography>
           </Grid>
 
-          <Grid container item={true} spacing={1} xs={12}>
-            <Grid item>
-              <Avatar variant="rounded" className={classes.red}>
-                {props.financial?.losers?.quantity}
-              </Avatar>
-            </Grid>
-            <Grid item>
-              <Typography
-                className={classes.value}
-                style={{ fontWeight: 'bold' }}
-                color="textSecondary">
-                {props.financial?.losers?.value}
-              </Typography>
-              <Typography
-                className={classes.description}
-                color="textSecondary">
-                {props.financial?.losers?.description}
-              </Typography>
-            </Grid>
-          </Grid>
+          <TiituloFinanceiroItem item={props.financial?.losers} avatarColor={classes.red} />
+          <TiituloFinanceiroItem item={props.financial?.toWin} avatarColor={classes.orange} style={{ marginTop: 10 }} />
+          <TiituloFinanceiroItem item={props.financial?.paid} avatarColor={classes.green} style={{ marginTop: 10 }} />
 
-          <Grid container item={true} spacing={1} xs={12} style={{ marginTop: 10 }}>
-            <Grid item>
-              <Avatar variant="rounded" className={classes.orange}>
-                {props.financial?.toWin?.quantity}
-              </Avatar>
-            </Grid>
-            <Grid item>
-              <Typography
-                className={classes.value}
-                style={{ fontWeight: 'bold' }}
-                color="textSecondary">
-                {props.financial?.toWin?.value}
-              </Typography>
-              <Typography
-                className={classes.description}
-                color="textSecondary">
-                {props.financial?.toWin?.description}
-              </Typography>
-            </Grid>
-          </Grid>
-
-          <Grid container item={true} spacing={1} xs={12} style={{ marginTop: 10 }}>
-            <Grid item>
-              <Avatar variant="rounded" className={classes.green}>
-                {props.financial?.paid?.quantity}
-              </Avatar>
-            </Grid>
-            <Grid item>
-              <Typography
-                className={classes.value}
-                style={{ fontWeight: 'bold' }}
-                color="textSecondary">
-                {props.financial?.paid?.value}
-              </Typography>
-              <Typography
-                className={classes.description}
-                color="textSecondary">
-                {props.financial?.paid?.description}
-              </Typography>
-            </Grid>
-          </Grid>
         </Grid>
       </CardContent>
     </Card>
   )
+}
 
+const TiituloFinanceiroItem = (props) => {
+
+  const classes = tituloFinanceiroItemStyles();
+
+  return (
+    <Grid container item={true} spacing={1} xs={12} style={props.style}>
+      <Grid item>
+        <Avatar variant="rounded" className={props.avatarColor}>
+          {props.item?.quantity}
+        </Avatar>
+      </Grid>
+      <Grid item>
+        <Typography
+          className={classes.value}
+          style={{ fontWeight: 'bold' }}
+          color="textSecondary">
+          {props.item?.value}
+        </Typography>
+        <Typography
+          className={classes.description}
+          color="textSecondary">
+          {props.item?.description}
+        </Typography>
+      </Grid>
+    </Grid>
+  )
 }
 
 export default TituloFinanceiros;
