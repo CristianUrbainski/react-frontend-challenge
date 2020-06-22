@@ -109,7 +109,7 @@ const AtividadeItem = (props) => {
 
   return (
     <Grid item className={classes.quantidadeContainer}>
-      <Avatar variant="rounded" className={[props.avatarColor, classes.avatarSize]}>
+      <Avatar variant="rounded" className={[props.avatarColor, classes.avatarSize].join(" ")}>
         {props.item?.quantity}
       </Avatar>
       <Typography

@@ -37,45 +37,57 @@ const CustomerDetails = (props) => {
 
   useEffect(() => {
     
+    let isMounted = true;
+
     async function fetchData() {
       
       var id = props.match.params.id;
 
       const res = await fetch('http://localhost:4000/v1/customer/' + id);
       res.json()
-        .then(data => setCustomer(data))
+        .then((data) => {
+
+          if (isMounted) {
+            
+            setCustomer(data);
+          }
+        })
         .catch(console.log);
     }
 
     fetchData();
+
+    return () => { 
+      isMounted = false;
+    };
 
   });
 
   return (
     <div className={classes.root}>
       <Grid container spacing={2} className={classes.container}>
-        <Grid container item={true} spacing={2} className={classes.gridLeft, classes.flexStart} xs={12} sm={6}>
-          <Grid item xs={6} sm={6} lg={6} xl={6}>
+        <Grid container item={true} spacing={2} className={[classes.gridLeft, classes.flexStart].join(" ")} xs={12} sm={12} lg={6} xl={6}>
+          <Grid item xs={12} sm={6} lg={6} xl={6}>
             <GeneralInformations customer={customer} />
           </Grid>
-          <Grid item xs={6} sm={6} lg={6} xl={6}>
+          <Grid item xs={12} sm={6} lg={6} xl={6}>
             <Local address={customer?.address}/>
           </Grid>
-          <Grid item xs={6} sm={6} lg={6} xl={6}>
+          <Grid item xs={12} sm={6} lg={6} xl={6}>
             <Oportunidades opportunity={customer?.opportunity} />
           </Grid>
-          <Grid item xs={6} sm={6} lg={6} xl={6}>
+          <Grid item xs={12} sm={6} lg={6} xl={6}>
             <LimiteCredito creditLimit={customer?.creditLimit} />
           </Grid>
-          <Grid item xs={6} sm={6} lg={6} xl={6}>
+          <Grid item xs={12} sm={6} lg={6} xl={6}>
             <Vendas />
           </Grid>
-          <Grid item xs={6} sm={6} lg={6} xl={6}>
+          <Grid item xs={12} sm={6} lg={6} xl={6}>
             <TituloFinanceiros financial={customer?.financial} />
           </Grid>
         </Grid>
 
-        <Grid item xs={12} sm={6} lg={6} xl={6} className={classes.container} style={{ paddingBottom: 0 }}>
+        <Grid item xs={12} sm={12} lg={6} xl={6} className={classes.container} style={{ paddingBottom: 0 }}>
           <Atividades activities={customer?.activities}/>
         </Grid>
 

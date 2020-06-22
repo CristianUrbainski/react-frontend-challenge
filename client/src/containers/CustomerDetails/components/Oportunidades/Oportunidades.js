@@ -37,6 +37,10 @@ const oportunidadeItemStye = makeStyles(theme => ({
   },
   metricaValor: {
     fontSize: 11
+  },
+  textEllipsis: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   }
 }))
 
@@ -85,21 +89,23 @@ const OportuidadeItem = (props) => {
   const classes = oportunidadeItemStye();
   
   return (
-    <Grid container item={true} spacing={1} xs={6} style={props.style}>
-      <Grid item>
+    <Grid container item={true} spacing={1} xs={6} style={props.style} className={classes.textEllipsis}>
+      <Grid item style={{ width: 45 }}>
         <Avatar variant="rounded" className={props.avatarColor}>
           {props.item?.quantity}
         </Avatar>
       </Grid>
-      <Grid item>
+      <Grid item style={{ width: 'calc(100% - 50px)' }}>
         <Typography
           className={classes.metricaTitulo}
-          color="textSecondary">
+          color="textSecondary"
+          noWrap>
           {props.item?.description}
         </Typography>
         <Typography
           className={classes.metricaValor}
-          color="textSecondary">
+          color="textSecondary"
+          noWrap>
           {props.item?.value}
         </Typography>
       </Grid>

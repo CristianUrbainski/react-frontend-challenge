@@ -17,16 +17,28 @@ const CustomerList = (props) => {
   const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
+
+    let isMounted = true;
     
     async function fetchData() {
       
       const res = await fetch('http://localhost:4000/v1/customers');
       res.json()
-        .then(data => setCustomers(data))
+        .then((data) => {
+
+          if (isMounted) {
+
+            setCustomers(data);
+          }
+        })
         .catch(console.log);
     }
     
     fetchData();
+
+    return () => { 
+      isMounted = false;
+    };
   });
 
   return (

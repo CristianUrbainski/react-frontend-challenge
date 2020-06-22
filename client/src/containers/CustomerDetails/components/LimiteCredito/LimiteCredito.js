@@ -66,7 +66,7 @@ const LimiteCreditoItem = (props) => {
   return (
     <Grid item>
       <Typography
-        className={classes.value, props.labelColor}>
+        className={[classes.value, props.labelColor].join(" ")}>
         {props.item?.value}
       </Typography>
       <Typography
